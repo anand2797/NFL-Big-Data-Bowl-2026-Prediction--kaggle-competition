@@ -1,4 +1,6 @@
 artifacts/
+kaggle_work/
+data_sample/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
