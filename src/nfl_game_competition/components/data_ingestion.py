@@ -14,7 +14,7 @@ Next step 4 after this file is : src/nfl_game_competition/pipeline/train_pipelin
 import os, sys
 from src.nfl_game_competition.logger import get_logger
 from src.nfl_game_competition.exception import NFLGameCompetitionException
-from src.nfl_game_competition.entity.config_entity import DataIngestionConfig
+from src.nfl_game_competition.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig
 from src.nfl_game_competition.entity.artifact_entity import DataIngestionArtifact
 from src.nfl_game_competition.utils.common import create_directories, load_data, save_data, write_yaml
 from kaggle.api.kaggle_api_extended import KaggleApi

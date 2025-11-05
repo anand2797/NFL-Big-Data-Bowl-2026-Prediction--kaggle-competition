@@ -1,5 +1,5 @@
 # main.py (project root)
-from src.nfl_game_competition.logger import get_logger
+"""from src.nfl_game_competition.logger import get_logger
 # check if data_ingestion.py changes are correct
 
 logger = get_logger(__name__)
@@ -17,4 +17,10 @@ if __name__ == "__main__":
         logger.info(f"Data Ingestion Artifact: {data_ingestion_artifact}")
     except Exception as e:
         logger.error(f"An error occurred: {e}")
-        raise NFLGameCompetitionException(f"Error in Data Ingestion main: {e}", sys)
+        raise NFLGameCompetitionException(f"Error in Data Ingestion main: {e}", sys)"""
+
+from src.nfl_game_competition.pipeline.train_pipeline import TrainingPipeline
+
+if __name__ == "__main__":
+    pipeline = TrainingPipeline()
+    pipeline.run_pipeline()
