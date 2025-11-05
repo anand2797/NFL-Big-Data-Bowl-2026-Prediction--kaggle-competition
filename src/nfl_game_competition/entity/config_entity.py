@@ -25,14 +25,11 @@ next step 3 : 'src/nfl_game_competition/component/data_ingestion.py'
 @dataclass
 class DataIngestionConfig:
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
-        self.data_ingestion_dir: str = os.path.join(training_pipeline_config.artifact_dir,
+        self.training_pipeline_config = training_pipeline_config
+        self.data_ingestion_dir: str = os.path.join(self.training_pipeline_config.artifact_dir,
                                                     training_pipeline.DATA_INGESTION_DIR_NAME)  # data ingestion directory
         self.data_source_url: str = training_pipeline.DATA_INGESTION_SOURCE_URL  # data source url  
         self.data_collection_name: str = training_pipeline.DATA_INGESTION_COLLECTION_NAME  # data collection
-        # feature store file path as(artifacts/data_ingestion/feature_store/nfl_game_features.csv)
-        self.feature_store_filepath: str = os.path.join(self.data_ingestion_dir, 
-                                                        training_pipeline.DATA_INGESTION_FEATURE_STORE_DIR,
-                                                        training_pipeline.FILE_NAME)  # feature store file path
         # training file path as(artifacts/data_ingestion/ingested/train_test_split/train.csv)
         self.training_filepath: str = os.path.join(self.data_ingestion_dir, 
                                                    training_pipeline.DATA_INGESTION_INGESTED_DIR,
@@ -42,12 +39,18 @@ class DataIngestionConfig:
                                                   training_pipeline.DATA_INGESTION_INGESTED_DIR,
                                                   training_pipeline.DATA_INGESTION_SPLITTED_DIR,
                                                   training_pipeline.TEST_FILE_NAME)  # test filepath
-        # downloaded data zip file path:  artifacts/data_ingestion/ingested/data.zip
-        self.zipped_data_filepath: str = os.path.join(self.data_ingestion_dir,
-                                                      training_pipeline.DATA_INGESTION_INGESTED_DIR,
+        # downloaded data zip file path:  artifacts/downloaded_data/zipped_data
+        self.zipped_data_filepath: str = os.path.join(training_pipeline.ARTIFACT_DIR,
+                                                      training_pipeline.DATA_INGESTION_DOWNLOADED_DIR,
                                                       training_pipeline.DATA_INGESTION_ZIPPED_FILE_DIR)  
-        # unzipped data directory path: artifacts/data_ingestion/ingested/unzipped_data
-        self.unzipped_data_dir: str = os.path.join(self.data_ingestion_dir,
-                                                   training_pipeline.DATA_INGESTION_INGESTED_DIR,
+        # unzipped data directory path: artifacts/downloded_data/unzipped_data
+        self.unzipped_data_dir: str = os.path.join(training_pipeline.ARTIFACT_DIR,
+                                                   training_pipeline.DATA_INGESTION_DOWNLOADED_DIR,
                                                    training_pipeline.DATA_INGESTION_UNZIPPED_DIR_NAME)  # unzipped data directory
+        # feature store file path as(artifacts/downloaded_data/merged_data.csv)
+        self.feature_store_filepath: str = os.path.join(training_pipeline.ARTIFACT_DIR, 
+                                                        training_pipeline.DATA_INGESTION_DOWNLOADED_DIR,
+                                                        training_pipeline.DATA_INGESTION_FEATURE_STORE_DIR,
+                                                        training_pipeline.FILE_NAME)  # feature store file path
+        self.schema_file_path: str = training_pipeline.SCHEMA_FILEPATH # schema file path
         

@@ -1,9 +1,20 @@
 # main.py (project root)
-from src.nfl_game_competition.exception import logger
+from src.nfl_game_competition.logger import get_logger
+# check if data_ingestion.py changes are correct
 
-# Use the logger from exception.py
-logger.info("This is a test log from main.py")
-logger.warning("Warning test from main.py")
-logger.error("Error test from main.py")
+logger = get_logger(__name__)
 
-print("Imported exception.py and logged messages successfully.")
+from src.nfl_game_competition.components.data_ingestion import DataIngestion
+from src.nfl_game_competition.entity.config_entity import TrainingPipelineConfig
+from src.nfl_game_competition.entity.config_entity import DataIngestionConfig   
+from src.nfl_game_competition.exception import NFLGameCompetitionException
+import sys
+if __name__ == "__main__":
+    try:
+        data_ingestion_config = DataIngestionConfig(training_pipeline_config=TrainingPipelineConfig())
+        data_ingestion = DataIngestion(config=data_ingestion_config)
+        data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
+        logger.info(f"Data Ingestion Artifact: {data_ingestion_artifact}")
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        raise NFLGameCompetitionException(f"Error in Data Ingestion main: {e}", sys)
